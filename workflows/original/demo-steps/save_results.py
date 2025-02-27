@@ -1,9 +1,8 @@
 import sandgarden_runtime
 from psycopg2.extras import RealDictCursor
 
-def handler(input, sandgarden, context):
-    sandgarden_runtime.initialize_connectors(['tickets-postgres'], sandgarden)
-    conn = sandgarden.connectors['tickets-postgres']
+def handler(input, sandgarden):
+    conn = sandgarden.get_connector('tickets-postgres')
 
     main_key = list(input.keys())[0]
     results = input[main_key]

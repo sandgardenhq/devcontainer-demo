@@ -1,11 +1,10 @@
 from psycopg2.extras import RealDictCursor
 import sandgarden_runtime
 
-def handler(input, sandgarden, context):
-    sandgarden_runtime.initialize_connectors(['tickets-postgres'], sandgarden)
+def handler(input, sandgarden):
+    conn = sandgarden.get_connector('tickets-postgres')
     print(f"Hydrating {input}")
 
-    conn = sandgarden.connectors['tickets-postgres']
     with conn.cursor(cursor_factory=RealDictCursor) as cur:
         # Load the schema.sql and run it
         print("Loading schema.sql")

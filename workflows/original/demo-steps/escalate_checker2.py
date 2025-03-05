@@ -5,10 +5,10 @@ from pydantic import BaseModel
 class EscalateCheckerOutput(BaseModel):
     escalate: bool
 
-def handler(input, sandgarden, context):
-    sandgarden_runtime.initialize_connectors(['tickets-postgres', 'tickets-openai'], sandgarden)
-    conn = sandgarden.connectors['tickets-postgres']
-    openai = sandgarden.connectors['tickets-openai']
+def handler(input, sandgarden):
+    conn = sandgarden.get_connectors('tickets-postgres')
+    openai = sandgarden.get_connectors('tickets-openai')
+    
     ticket_id = input.get('ticket_id') or input.get('$.ticket_id')
 
     ticket, messages = get_ticket_history(conn, ticket_id)

@@ -1,0 +1,246 @@
+{
+  "id": "stp_01jnfgpsrmfk4t1vvxxcrmzvqn",
+  "name": "analyze-customer-sentiment",
+  "version": 2,
+  "local": {
+    "baseImage": "public.ecr.aws/sandgarden/sgruntime:python-3.12",
+    "entrypoint": "main.handler",
+    "network": "",
+    "volumeMountPath": "/Users/brittcrawford/workspace/devcontainer-demo/analyze-support-ticket/steps/0002-analyze-customer-sentiment"
+  },
+  "connectors": [
+    "ticket-summarizer-model"
+  ],
+  "url": "https://api.sandgarden.com/api/v1/steps/analyze-customer-sentiment:2",
+  "inputSchema": {
+    "type": "object",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": ["ticket", "summary"],
+    "properties": {
+      "ticket": {
+        "type": "object",
+        "required": ["id", "email", "subject", "status", "updated_at"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Ticket identifier"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the requester"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Ticket subject line"
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "Detailed ticket description"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current ticket status"
+          },
+          "priority": {
+            "type": ["string", "null"],
+            "description": "Ticket priority level"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when ticket was last updated"
+          },
+          "organization": {
+            "type": ["string", "null"],
+            "description": "Name of the organization"
+          },
+          "organization_details": {
+            "type": ["string", "null"],
+            "description": "Additional details about the organization"
+          },
+          "organization_notes": {
+            "type": ["string", "null"],
+            "description": "Notes about the organization"
+          },
+          "url": {
+            "type": ["string", "null"],
+            "description": "URL to the ticket"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags applied to the ticket"
+          }
+        },
+        "additionalProperties": false
+      },
+      "summary": {
+        "type": "string",
+        "description": "AI-generated summary of the ticket content"
+      }
+    },
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": ["ticket", "analysis", "account"],
+    "properties": {
+      "ticket": {
+        "type": "object",
+        "required": ["id", "email", "subject", "status", "updated_at"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Ticket identifier"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the requester"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Ticket subject line"
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "Detailed ticket description"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current ticket status"
+          },
+          "priority": {
+            "type": ["string", "null"],
+            "description": "Ticket priority level"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when ticket was last updated"
+          },
+          "organization": {
+            "type": ["string", "null"],
+            "description": "Name of the organization"
+          },
+          "organization_details": {
+            "type": ["string", "null"],
+            "description": "Additional details about the organization"
+          },
+          "organization_notes": {
+            "type": ["string", "null"],
+            "description": "Notes about the organization"
+          },
+          "url": {
+            "type": ["string", "null"],
+            "description": "URL to the ticket"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags applied to the ticket"
+          }
+        },
+        "additionalProperties": false
+      },
+      "analysis": {
+        "type": "object",
+        "required": ["sentiment", "confidence", "key_phrases", "emotion_indicators", "urgency_level", "satisfaction_indicators"],
+        "properties": {
+          "sentiment": {
+            "type": "string",
+            "enum": ["positive", "negative", "neutral"],
+            "description": "Overall sentiment classification"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Confidence score for sentiment classification"
+          },
+          "key_phrases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Key phrases extracted from ticket content"
+          },
+          "emotion_indicators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Indicators of customer emotions"
+          },
+          "urgency_level": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "Assessed urgency level"
+          },
+          "satisfaction_indicators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Indicators of customer satisfaction"
+          }
+        },
+        "additionalProperties": false
+      },
+      "account": {
+        "type": ["object", "null"],
+        "required": ["id", "name", "acv", "tier", "industry", "support_level", "critical_systems", "region"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Account identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Account name"
+          },
+          "acv": {
+            "type": "integer",
+            "description": "Annual contract value"
+          },
+          "tier": {
+            "type": "string",
+            "description": "Account tier"
+          },
+          "industry": {
+            "type": "string",
+            "description": "Industry sector"
+          },
+          "support_level": {
+            "type": "string",
+            "description": "Support level"
+          },
+          "critical_systems": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Critical systems for the account"
+          },
+          "region": {
+            "type": "string",
+            "description": "Geographic region"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "buildStatus": "created",
+  "buildLogs": "",
+  "buildDuration": 1281,
+  "prompts": {
+    "analyze-ticket-sentiment": "1"
+  },
+  "cluster": "reliable-optimal-boat"
+}

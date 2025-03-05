@@ -1,0 +1,16 @@
+🚨 CRITICAL TICKET - IMMEDIATE ACTION REQUIRED
+
+Customer: Walmart
+Revenue Impact: $2.1M ARR
+Churn Risk: HIGH 🔥
+
+Issue: System-wide outage across all test stores
+Duration: 6+ hours
+Impact: Complete loss of customer behavior data
+Context: Third major outage this quarter
+Urgency: Customer presenting to board next week
+
+AI Analysis: Immediate escalation required. High-value enterprise customer showing strong churn signals. Previous incidents compound risk. Technical director intervention recommended.
+
+View in Zendesk: [Ticket #4721]
+Escalate to On-Call: [Click to Page]

@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ticket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Ticket identifier"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the requester"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Ticket subject line"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Detailed ticket description"
+        },
+        "status": {
+          "type": "string",
+          "description": "Current ticket status"
+        },
+        "priority": {
+          "type": ["string", "null"],
+          "description": "Ticket priority level"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when ticket was last updated"
+        },
+        "organization": {
+          "type": ["string", "null"],
+          "description": "Name of the organization"
+        },
+        "organization_details": {
+          "type": ["string", "null"],
+          "description": "Additional details about the organization"
+        },
+        "organization_notes": {
+          "type": ["string", "null"],
+          "description": "Notes about the organization"
+        },
+        "url": {
+          "type": ["string", "null"],
+          "description": "URL to the ticket"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags applied to the ticket"
+        }
+      },
+      "required": ["id", "email", "subject", "status", "updated_at"],
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "string",
+      "description": "AI-generated summary of the ticket content"
+    }
+  },
+  "required": ["ticket", "summary"],
+  "additionalProperties": false
+} 

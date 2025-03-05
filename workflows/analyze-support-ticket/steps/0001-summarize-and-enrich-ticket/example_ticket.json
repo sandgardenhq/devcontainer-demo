@@ -1,0 +1,14 @@
+{
+  "id": 12345,
+  "email": "customer@company.com",
+  "subject": "API Gateway returning 503 errors intermittently",
+  "description": "We're seeing intermittent 503 errors from the API Gateway endpoints in the production environment. This started occurring around 2:30 PM EST. The errors seem to happen every 15-20 minutes and last for about 30 seconds. Our monitoring shows increased latency during these periods. This is affecting approximately 10% of our API requests.\n\nError rate metrics:\n- Normal: 0.1% error rate\n- During incidents: 15-20% error rate\n\nWe've already checked our application logs and don't see any corresponding errors on our side. The issues seem to be occurring at the API Gateway level.",
+  "status": "open",
+  "priority": "urgent",
+  "updated_at": "2024-02-27T14:45:00Z",
+  "organization": "TechVision Inc",
+  "organization_details": "Enterprise Customer",
+  "organization_notes": "Critical API dependency",
+  "url": "https://company.zendesk.com/api/v2/tickets/12345",
+  "tags": ["api", "production", "gateway", "urgent"]
+}

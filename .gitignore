@@ -45,3 +45,4 @@ setup.sh
 
 # local directories
 workflow/scratch/**
+.aider*

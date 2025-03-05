@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ticket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Ticket identifier"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the requester"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Ticket subject line"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Detailed ticket description"
+        },
+        "status": {
+          "type": "string",
+          "description": "Current ticket status"
+        },
+        "priority": {
+          "type": ["string", "null"],
+          "description": "Ticket priority level"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when ticket was last updated"
+        },
+        "organization": {
+          "type": ["string", "null"],
+          "description": "Name of the organization"
+        },
+        "organization_details": {
+          "type": ["string", "null"],
+          "description": "Additional details about the organization"
+        },
+        "organization_notes": {
+          "type": ["string", "null"],
+          "description": "Notes about the organization"
+        },
+        "url": {
+          "type": ["string", "null"],
+          "description": "URL to the ticket"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags applied to the ticket"
+        }
+      },
+      "required": ["id", "email", "subject", "status", "updated_at"],
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "string",
+      "description": "AI-generated summary of the ticket content"
+    },
+    "sentiment": {
+      "type": "object",
+      "properties": {
+        "sentiment": {
+          "type": "string",
+          "enum": ["positive", "negative", "neutral"],
+          "description": "Overall sentiment classification"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence score for sentiment classification"
+        },
+        "key_phrases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key phrases extracted from ticket content"
+        },
+        "emotion_indicators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Indicators of customer emotions"
+        },
+        "urgency_level": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Assessed urgency level"
+        },
+        "satisfaction_indicators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Indicators of customer satisfaction"
+        }
+      },
+      "required": ["sentiment", "confidence", "key_phrases", "emotion_indicators", "urgency_level", "satisfaction_indicators"],
+      "additionalProperties": false
+    },
+    "account": {
+      "type": ["object", "null"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Account identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Account name"
+        },
+        "acv": {
+          "type": "integer",
+          "description": "Annual contract value"
+        },
+        "tier": {
+          "type": "string",
+          "description": "Account tier"
+        },
+        "industry": {
+          "type": "string",
+          "description": "Industry sector"
+        },
+        "support_level": {
+          "type": "string",
+          "description": "Support level"
+        },
+        "critical_systems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Critical systems for the account"
+        },
+        "region": {
+          "type": "string",
+          "description": "Geographic region"
+        }
+      },
+      "required": ["id", "name", "acv", "tier", "industry", "support_level", "critical_systems", "region"],
+      "additionalProperties": false
+    },
+    "risk_assessment": {
+      "type": "object",
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Overall churn risk level"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence score for risk assessment"
+        },
+        "risk_factors": {
+          "type": "object",
+          "properties": {
+            "sentiment_indicators": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Risk factors related to customer sentiment"
+            },
+            "technical_factors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Risk factors related to technical issues"
+            },
+            "account_factors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Risk factors related to account characteristics"
+            },
+            "historical_factors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Risk factors related to historical patterns"
+            }
+          },
+          "required": ["sentiment_indicators", "technical_factors", "account_factors", "historical_factors"],
+          "additionalProperties": false
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Recommended actions to mitigate churn risk"
+        },
+        "priority_score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "description": "Priority score from 1-100"
+        }
+      },
+      "required": ["risk_level", "confidence", "risk_factors", "recommendations", "priority_score"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["ticket", "summary", "sentiment", "risk_assessment"],
+  "additionalProperties": false
+} 

@@ -1,0 +1,44 @@
+{
+  "id": "wrk_01jnh6nxgcfk4s3b9h0f0b0681",
+  "name": "analyze-support-ticket",
+  "version": 11,
+  "config": {
+    "stages": [
+      {
+        "name": "summarize-and-enrich-ticket",
+        "input": "runInput",
+        "workflowRunInput": true,
+        "step": "summarize-and-enrich-ticket:demo",
+        "abortOnError": true
+      },
+      {
+        "name": "analyze-customer-sentiment",
+        "input": "stage0",
+        "stageInput": 0,
+        "step": "analyze-customer-sentiment:demo",
+        "abortOnError": true
+      },
+      {
+        "name": "determine-churn-risk",
+        "input": "stage1",
+        "stageInput": 1,
+        "step": "determine-churn-risk:demo",
+        "abortOnError": true
+      },
+      {
+        "name": "escalation-decision",
+        "input": "stage2",
+        "stageInput": 2,
+        "step": "escalation-decision:demo",
+        "abortOnError": true
+      }
+    ]
+  },
+  "url": "https://api.sandgarden.com/api/v1/workflows/analyze-support-ticket:11",
+  "inputSchema": "{\"type\": \"object\", \"$schema\": \"http://json-schema.org/draft-07/schema#\", \"required\": [\"id\", \"email\", \"subject\", \"status\", \"updated_at\"], \"properties\": {\"id\": {\"type\": \"integer\", \"description\": \"Ticket identifier\"}, \"url\": {\"type\": [\"string\", \"null\"], \"description\": \"URL to the ticket\"}, \"tags\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Tags applied to the ticket\"}, \"email\": {\"type\": \"string\", \"description\": \"Email of the requester\"}, \"status\": {\"type\": \"string\", \"description\": \"Current ticket status\"}, \"subject\": {\"type\": \"string\", \"description\": \"Ticket subject line\"}, \"priority\": {\"type\": [\"string\", \"null\"], \"description\": \"Ticket priority level\"}, \"updated_at\": {\"type\": \"string\", \"format\": \"date-time\", \"description\": \"Timestamp when ticket was last updated\"}, \"description\": {\"type\": [\"string\", \"null\"], \"description\": \"Detailed ticket description\"}, \"organization\": {\"type\": [\"string\", \"null\"], \"description\": \"Name of the organization\"}, \"organization_notes\": {\"type\": [\"string\", \"null\"], \"description\": \"Notes about the organization\"}, \"organization_details\": {\"type\": [\"string\", \"null\"], \"description\": \"Additional details about the organization\"}}, \"additionalProperties\": false}",
+  "outputSchema": "{\"type\": \"object\", \"$schema\": \"http://json-schema.org/draft-07/schema#\", \"required\": [\"ticket\", \"summary\", \"sentiment\", \"risk_assessment\", \"escalation\", \"notification_sent\"], \"properties\": {\"ticket\": {\"type\": \"object\", \"required\": [\"id\", \"email\", \"subject\", \"status\", \"updated_at\"], \"properties\": {\"id\": {\"type\": \"integer\", \"description\": \"Ticket identifier\"}, \"url\": {\"type\": [\"string\", \"null\"], \"description\": \"URL to the ticket\"}, \"tags\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Tags applied to the ticket\"}, \"email\": {\"type\": \"string\", \"description\": \"Email of the requester\"}, \"status\": {\"type\": \"string\", \"description\": \"Current ticket status\"}, \"subject\": {\"type\": \"string\", \"description\": \"Ticket subject line\"}, \"priority\": {\"type\": [\"string\", \"null\"], \"description\": \"Ticket priority level\"}, \"updated_at\": {\"type\": \"string\", \"format\": \"date-time\", \"description\": \"Timestamp when ticket was last updated\"}, \"description\": {\"type\": [\"string\", \"null\"], \"description\": \"Detailed ticket description\"}, \"organization\": {\"type\": [\"string\", \"null\"], \"description\": \"Name of the organization\"}, \"organization_notes\": {\"type\": [\"string\", \"null\"], \"description\": \"Notes about the organization\"}, \"organization_details\": {\"type\": [\"string\", \"null\"], \"description\": \"Additional details about the organization\"}}, \"additionalProperties\": false}, \"account\": {\"type\": [\"object\", \"null\"], \"required\": [\"id\", \"name\", \"acv\", \"tier\", \"industry\", \"support_level\", \"critical_systems\", \"region\"], \"properties\": {\"id\": {\"type\": \"string\", \"description\": \"Account identifier\"}, \"acv\": {\"type\": \"integer\", \"description\": \"Annual contract value\"}, \"name\": {\"type\": \"string\", \"description\": \"Account name\"}, \"tier\": {\"type\": \"string\", \"description\": \"Account tier\"}, \"region\": {\"type\": \"string\", \"description\": \"Geographic region\"}, \"industry\": {\"type\": \"string\", \"description\": \"Industry sector\"}, \"support_level\": {\"type\": \"string\", \"description\": \"Support level\"}, \"critical_systems\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Critical systems for the account\"}}, \"additionalProperties\": false}, \"summary\": {\"type\": \"string\", \"description\": \"AI-generated summary of the ticket content\"}, \"sentiment\": {\"type\": \"object\", \"required\": [\"sentiment\", \"confidence\", \"key_phrases\", \"emotion_indicators\", \"urgency_level\", \"satisfaction_indicators\"], \"properties\": {\"sentiment\": {\"enum\": [\"positive\", \"negative\", \"neutral\"], \"type\": \"string\", \"description\": \"Overall sentiment classification\"}, \"confidence\": {\"type\": \"number\", \"maximum\": 1, \"minimum\": 0, \"description\": \"Confidence score for sentiment classification\"}, \"key_phrases\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Key phrases extracted from ticket content\"}, \"urgency_level\": {\"enum\": [\"high\", \"medium\", \"low\"], \"type\": \"string\", \"description\": \"Assessed urgency level\"}, \"emotion_indicators\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Indicators of customer emotions\"}, \"satisfaction_indicators\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Indicators of customer satisfaction\"}}, \"additionalProperties\": false}, \"escalation\": {\"type\": \"object\", \"required\": [\"should_escalate\", \"reasons\", \"recommended_actions\", \"priority_level\", \"response_sla\"], \"properties\": {\"reasons\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Reasons for escalation decision\"}, \"response_sla\": {\"type\": \"string\", \"description\": \"Service level agreement for response time\"}, \"priority_level\": {\"enum\": [\"critical\", \"high\", \"medium\", \"low\"], \"type\": \"string\", \"description\": \"Priority level for escalation\"}, \"should_escalate\": {\"type\": \"boolean\", \"description\": \"Whether the ticket should be escalated\"}, \"recommended_actions\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Recommended actions to take\"}}, \"additionalProperties\": false}, \"risk_assessment\": {\"type\": \"object\", \"required\": [\"risk_level\", \"confidence\", \"risk_factors\", \"recommendations\", \"priority_score\"], \"properties\": {\"confidence\": {\"type\": \"number\", \"maximum\": 1, \"minimum\": 0, \"description\": \"Confidence score for risk assessment\"}, \"risk_level\": {\"enum\": [\"high\", \"medium\", \"low\"], \"type\": \"string\", \"description\": \"Overall churn risk level\"}, \"risk_factors\": {\"type\": \"object\", \"required\": [\"sentiment_indicators\", \"technical_factors\", \"account_factors\", \"historical_factors\"], \"properties\": {\"account_factors\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Risk factors related to account characteristics\"}, \"technical_factors\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Risk factors related to technical issues\"}, \"historical_factors\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Risk factors related to historical patterns\"}, \"sentiment_indicators\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Risk factors related to customer sentiment\"}}, \"additionalProperties\": false}, \"priority_score\": {\"type\": \"integer\", \"maximum\": 100, \"minimum\": 1, \"description\": \"Priority score from 1-100\"}, \"recommendations\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}, \"description\": \"Recommended actions to mitigate churn risk\"}}, \"additionalProperties\": false}, \"notification_sent\": {\"type\": \"boolean\", \"description\": \"Whether a notification was sent\"}}, \"additionalProperties\": false}",
+  "buildStatus": "created",
+  "buildLogs": "",
+  "buildDuration": 0,
+  "cluster": "reliable-optimal-boat"
+}

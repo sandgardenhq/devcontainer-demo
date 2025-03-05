@@ -1,0 +1,54 @@
+{
+  "accounts": [
+    {
+      "id": "org_123",
+      "name": "TechVision Inc",
+      "acv": 250000,
+      "tier": "enterprise",
+      "industry": "technology",
+      "support_level": "premium",
+      "critical_systems": ["api-gateway", "authentication", "data-processing"],
+      "region": "us-east"
+    },
+    {
+      "id": "org_456",
+      "name": "HealthFirst Solutions",
+      "acv": 175000,
+      "tier": "enterprise",
+      "industry": "healthcare",
+      "support_level": "premium",
+      "critical_systems": ["patient-records", "scheduling"],
+      "region": "us-west"
+    },
+    {
+      "id": "org_789",
+      "name": "FinServ Global",
+      "acv": 500000,
+      "tier": "enterprise-plus",
+      "industry": "financial",
+      "support_level": "premium-plus",
+      "critical_systems": ["trading-platform", "risk-analysis", "compliance"],
+      "region": "eu-west"
+    },
+    {
+      "id": "org_234",
+      "name": "RetailPro",
+      "acv": 75000,
+      "tier": "business",
+      "industry": "retail",
+      "support_level": "standard",
+      "critical_systems": ["inventory", "pos"],
+      "region": "us-central"
+    },
+    {
+      "id": "org_567",
+      "name": "EduTech Systems",
+      "acv": 120000,
+      "tier": "business-plus",
+      "industry": "education",
+      "support_level": "premium",
+      "critical_systems": ["lms", "student-portal"],
+      "region": "ap-south"
+    }
+  ]
+}

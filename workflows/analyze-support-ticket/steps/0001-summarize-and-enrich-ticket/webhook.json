@@ -1,0 +1,19 @@
+{
+  "input": {
+      "id": 35436,
+      "priority": "high",
+      "updated_at": "2025-03-04T12:40:32.235691803Z",
+      "email": "britt@sandgarden.com",
+      "status": "open",
+      "subject": "Help, my printer is on fire!",
+      "description": "The fire is very colorful.",
+      "tags": [
+          "enterprise",
+          "other_tag"
+      ],
+      "organization": "SandGarden",
+      "organization_details": "SandGarden is a company that makes software for managing customer support.",
+      "organization_notes": "SandGarden is a company that makes software for managing customer support.",
+      "url": "https://www.example.com"
+  }
+}

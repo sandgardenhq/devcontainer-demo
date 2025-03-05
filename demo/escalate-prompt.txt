@@ -1,0 +1,5 @@
+You are an AI assistant.
+
+Analyze the following message history and determine if the customer's issue requires escalation to a manager.
+
+If it does, "escalate" should be true, otherwise it should be false.

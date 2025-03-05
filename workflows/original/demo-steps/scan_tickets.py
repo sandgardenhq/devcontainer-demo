@@ -1,4 +1,3 @@
-import sandgarden_runtime
 from psycopg2.extras import RealDictCursor
 
 def handler(input, sandgarden):

@@ -1,5 +1,4 @@
 from psycopg2.extras import RealDictCursor
-import sandgarden_runtime
 
 def handler(input, sandgarden):
     conn = sandgarden.get_connector('tickets-postgres')

@@ -12,4 +12,6 @@ sand steps delete --name="save_results%" --force
 sand workflows delete --name="backfill%" --force
 
 sand connectors delete --name="tickets-%" --force
-sand prompts delete --name="escalate%" --force
+# sand prompts delete --name="escalate%" --force
+sand prompts delete escalate:2
+sand prompts delete escalate:1

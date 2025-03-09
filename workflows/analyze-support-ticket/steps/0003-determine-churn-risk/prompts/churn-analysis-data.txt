@@ -1,0 +1,29 @@
+Ticket Summary:
+{{summary}}
+
+Sentiment Analysis:
+- Overall Sentiment: {{analysis.sentiment}}
+- Confidence: {{analysis.confidence}}
+- Urgency Level: {{analysis.urgency_level}}
+- Key Phrases: {{#analysis.key_phrases}}{{.}}{{^last}}, {{/last}}{{/analysis.key_phrases}}
+- Emotion Indicators: {{#analysis.emotion_indicators}}{{.}}{{^last}}, {{/last}}{{/analysis.emotion_indicators}}
+- Satisfaction Indicators: {{#analysis.satisfaction_indicators}}{{.}}{{^last}}, {{/last}}{{/analysis.satisfaction_indicators}}
+
+Account Information:
+{{#account}}
+- Name: {{name}}
+- Annual Contract Value: ${{acv}}
+- Tier: {{tier}}
+- Support Level: {{support_level}}
+- Industry: {{industry}}
+- Critical Systems: {{#critical_systems}}{{.}}{{^last}}, {{/last}}{{/critical_systems}}
+- Region: {{region}}
+{{/account}}
+{{^account}}
+- No account information available
+{{/account}}
+
+Ticket Details:
+- Priority: {{ticket.priority}}
+- Status: {{ticket.status}}
+- Tags: {{#ticket.tags}}{{.}}{{^last}}, {{/last}}{{/ticket.tags}}

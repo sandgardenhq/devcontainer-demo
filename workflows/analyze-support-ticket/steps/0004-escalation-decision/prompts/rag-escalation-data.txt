@@ -1,0 +1,24 @@
+Ticket Summary:
+{{summary}}
+
+Risk Assessment:
+- Risk Level: {{risk_assessment.risk_level}}
+- Priority Score: {{risk_assessment.priority_score}}/100
+- Risk Factors: {{risk_assessment.risk_factors.technical_factors}}
+- Recommendations: {{risk_assessment.recommendations}}
+
+Account Impact:
+{{#account}}
+- Annual Value: ${{account.acv}}
+- Tier: {{account.tier}}
+- Support Level: {{account.support_level}}
+- Critical Systems: {{account.critical_systems}}
+{{/account}}
+{{^account}}
+- No account information available
+{{/account}}
+
+Sentiment Analysis:
+- Overall: {{sentiment.sentiment}}
+- Urgency: {{sentiment.urgency_level}}
+- Key Indicators: {{sentiment.emotion_indicators}}

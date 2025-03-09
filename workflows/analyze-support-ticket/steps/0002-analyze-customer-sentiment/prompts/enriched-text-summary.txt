@@ -1,0 +1,18 @@
+{{description}}
+
+Summary:
+{{summary}}
+
+Additional Context:
+- Priority: {{ticket.priority}}
+- Status: {{ticket.status}}
+- Tags: {{#ticket.tags}}{{.}}{{^last}}, {{/last}}{{/ticket.tags}}
+
+Account Information:
+- Name: {{#account}}{{name}}{{/account}}{{^account}}Unknown{{/account}}
+- Tier: {{#account}}{{tier}}{{/account}}{{^account}}Unknown{{/account}}
+- Support Level: {{#account}}{{support_level}}{{/account}}{{^account}}Unknown{{/account}}
+- Industry: {{#account}}{{industry}}{{/account}}{{^account}}Unknown{{/account}}
+- Annual Contract Value: ${{#account}}{{acv}}{{/account}}{{^account}}Unknown{{/account}}
+- Critical Systems: {{#account}}{{#critical_systems}}{{.}}{{^last}}, {{/last}}{{/critical_systems}}{{/account}}{{^account}}Unknown{{/account}}
+- Region: {{#account}}{{region}}{{/account}}{{^account}}Unknown{{/account}}

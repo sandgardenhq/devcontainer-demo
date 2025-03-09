@@ -93,33 +93,14 @@ def handler(input, sandgarden):
     prompt = sandgarden.get_prompt('assess-churn-risk')
     
     # Prepare content for analysis
-    # TODO: move to prompt
-    analysis_content = f"""
-Ticket Summary:
-{ticket_data.summary}
-
-Sentiment Analysis:
-- Overall Sentiment: {ticket_data.analysis.sentiment}
-- Confidence: {ticket_data.analysis.confidence}
-- Urgency Level: {ticket_data.analysis.urgency_level}
-- Key Phrases: {', '.join(ticket_data.analysis.key_phrases)}
-- Emotion Indicators: {', '.join(ticket_data.analysis.emotion_indicators)}
-- Satisfaction Indicators: {', '.join(ticket_data.analysis.satisfaction_indicators)}
-
-Account Information:
-{f'''- Name: {ticket_data.account['name']}
-- Annual Contract Value: ${ticket_data.account['acv']:,}
-- Tier: {ticket_data.account['tier']}
-- Support Level: {ticket_data.account['support_level']}
-- Industry: {ticket_data.account['industry']}
-- Critical Systems: {', '.join(ticket_data.account['critical_systems'])}
-- Region: {ticket_data.account['region']}''' if ticket_data.account else '- No account information available'}
-
-Ticket Details:
-- Priority: {ticket_data.ticket.priority}
-- Status: {ticket_data.ticket.status}
-- Tags: {', '.join(ticket_data.ticket.tags)}
-"""
+    analysis_content = sandgarden.render_prompt(
+        'churn-analysis-data', 
+        {
+            "ticket": ticket_data.ticket.__dict__, 
+            "summary": ticket_data.summary, 
+            "account": ticket_data.account.__dict__,
+            "analysis": ticket_data.analysis.__dict__
+        })
     
     # Get structured churn risk assessment from LLM
     risk_assessment = llm.beta.chat.completions.parse(

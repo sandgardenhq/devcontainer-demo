@@ -94,32 +94,16 @@ def handler(input, sandgarden):
     
     # Get LLM client and prompt
     llm = sandgarden.get_connector('ticket-summarizer-model')
-    prompt = sandgarden.get_prompt('analyze-ticket-sentiment')
+    prompt = sandgarden.get_prompt('analyze-sentiment')
 
     # Prepare content for analysis
-    # TODO: make account info optional
-    # TODO: move to prompt
-    analysis_content = f"""
-Ticket Content:
-{ticket_data.ticket.description}
-
-Summary:
-{ticket_data.summary}
-
-Additional Context:
-- Priority: {ticket_data.ticket.priority}
-- Status: {ticket_data.ticket.status}
-- Tags: {', '.join(ticket_data.ticket.tags)}
-
-Account Information:
-- Name: {account.name if account else 'Unknown'}
-- Tier: {account.tier if account else 'Unknown'}
-- Support Level: {account.support_level if account else 'Unknown'}
-- Industry: {account.industry if account else 'Unknown'}
-- Annual Contract Value: ${f"{account.acv:,}" if account else 'Unknown'}
-- Critical Systems: {', '.join(account.critical_systems) if account else 'Unknown'}
-- Region: {account.region if account else 'Unknown'}
-"""
+    analysis_content = sandgarden.render_prompt(
+        'enriched-text-summary', 
+        {
+            "ticket": ticket_data.ticket.__dict__, 
+            "summary": ticket_data.summary, 
+            "account": account.__dict__
+        })
     
     # Get structured sentiment analysis from LLM
     sentiment_data = llm.beta.chat.completions.parse(

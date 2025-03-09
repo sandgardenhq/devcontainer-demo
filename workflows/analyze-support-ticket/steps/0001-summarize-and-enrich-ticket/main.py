@@ -56,26 +56,8 @@ def handler(input, sandgarden):
     # Get LLM client and prompt
     llm = sandgarden.get_connector('ticket-summarizer-model')
     prompt = sandgarden.get_prompt('summarize-ticket')
-    
     # Prepare ticket content for summarization
-    ticket_content = f"""
-Ticket ID: {ticket.id}
-Subject: {ticket.subject}
-Status: {ticket.status}
-Priority: {ticket.priority or 'Not set'}
-Description: {ticket.description or 'No description provided'}
-
-Customer Details:
-- Email: {ticket.email}
-- Organization: {ticket.organization or 'Not specified'}
-- Organization Details: {ticket.organization_details or 'Not specified'}
-- Organization Notes: {ticket.organization_notes or 'None'}
-
-Metadata:
-- URL: {ticket.url or 'Not available'}
-- Tags: {', '.join(ticket.tags) if ticket.tags else 'None'}
-- Last Updated: {ticket.updated_at}
-"""
+    ticket_content = sandgarden.render_prompt('rag-zendesk-ticket', {"ticket": ticket.__dict__})
     
     # Get summary from LLM
     summary = llm.beta.chat.completions.parse(

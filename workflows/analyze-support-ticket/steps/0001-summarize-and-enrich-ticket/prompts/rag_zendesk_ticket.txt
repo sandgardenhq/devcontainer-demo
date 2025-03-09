@@ -1,0 +1,16 @@
+Ticket ID: {{ticket.id}}
+Subject: {{ticket.subject}}
+Status: {{ticket.status}}
+Priority: {{#ticket.priority}}{{ticket.priority}}{{/ticket.priority}}{{^ticket.priority}}Not set{{/ticket.priority}}
+Description: {{#ticket.description}}{{ticket.description}}{{/ticket.description}}{{^ticket.description}}No description provided{{/ticket.description}}
+
+Customer Details:
+- Email: {{ticket.email}}
+- Organization: {{#ticket.organization}}{{ticket.organization}}{{/ticket.organization}}{{^ticket.organization}}Not specified{{/ticket.organization}}
+- Organization Details: {{#ticket.organization_details}}{{ticket.organization_details}}{{/ticket.organization_details}}{{^ticket.organization_details}}Not specified{{/ticket.organization_details}}
+- Organization Notes: {{#ticket.organization_notes}}{{ticket.organization_notes}}{{/ticket.organization_notes}}{{^ticket.organization_notes}}None{{/ticket.organization_notes}}
+
+Metadata:
+- URL: {{#ticket.url}}{{ticket.url}}{{/ticket.url}}{{^ticket.url}}Not available{{/ticket.url}}
+- Tags: {{#ticket.tags}}{{#.}}{{.}}{{/.}}{{^last}}, {{/last}}{{/ticket.tags}}{{^ticket.tags}}None{{/ticket.tags}}
+- Last Updated: {{ticket.updated_at}}

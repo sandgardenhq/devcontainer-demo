@@ -3,11 +3,6 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict
 from slack_sdk.webhook import WebhookClient
 from datetime import datetime, timezone
-import logging
-
-# Set up logging
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 class Account(BaseModel):
     id: str
@@ -142,37 +137,20 @@ def handler(input, sandgarden):
         - Escalation decision and criteria
         - Notification status
     """
-    logger.info(f"WEBHOOK_URL: {os.getenv('WEBHOOK_URL')}")
     # Parse input
     ticket_data = ChurnRiskResponse(**input)
-    logger.info(f"ticket.url: {ticket_data.ticket.url}")
     
     # Get LLM client and prompt
     llm = sandgarden.get_connector('ticket-summarizer-model')
     prompt = sandgarden.get_prompt('assess-escalation')
     
     # Prepare content for analysis
-    analysis_content = f"""
-Ticket Summary:
-{ticket_data.summary}
-
-Risk Assessment:
-- Risk Level: {ticket_data.risk_assessment.risk_level}
-- Priority Score: {ticket_data.risk_assessment.priority_score}/100
-- Risk Factors: {', '.join(ticket_data.risk_assessment.risk_factors.technical_factors)}
-- Recommendations: {', '.join(ticket_data.risk_assessment.recommendations)}
-
-Account Impact:
-{f'''- Annual Value: ${ticket_data.account.acv:,}
-- Tier: {ticket_data.account.tier}
-- Support Level: {ticket_data.account.support_level}
-- Critical Systems: {', '.join(ticket_data.account.critical_systems)}''' if ticket_data.account else '- No account information available'}
-
-Sentiment Analysis:
-- Overall: {ticket_data.sentiment.sentiment}
-- Urgency: {ticket_data.sentiment.urgency_level}
-- Key Indicators: {', '.join(ticket_data.sentiment.emotion_indicators)}
-"""
+    analysis_content = sandgarden.render_prompt('rag-escalation-data', {
+        'summary': ticket_data.summary,
+        'risk_assessment': ticket_data.risk_assessment.__dict__,
+        'account': ticket_data.account.__dict__,
+        'sentiment': ticket_data.sentiment.__dict__
+    })
     
     # Get structured escalation assessment from LLM
     escalation_criteria = llm.beta.chat.completions.parse(

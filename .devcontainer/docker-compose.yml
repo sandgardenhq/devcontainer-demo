@@ -20,6 +20,7 @@ services:
       - SAND_LOG_LEVEL=debug
       - SAND_API_KEY=${SAND_API_KEY}
       - SAND_HOME=/.sandgarden
+      - SAND_CLUSTER=demo
     ports:
       - "8987:8987"
     volumes:

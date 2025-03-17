@@ -53,7 +53,7 @@ green "Hydrating ${DB_HOST} with tickets..."
 
 # Create a zip with two files: hydrate.py and schema.sql
 rm -f hydrate.zip
-zip -j hydrate.zip ../workflow/demo-steps/hydrate.py ../workflow/demo-steps/schema.sql
+zip -j hydrate.zip ../workflows/original/demo-steps/hydrate.py ../workflows/original/demo-steps/schema.sql
 
 $SGCLI steps push $STEP_TYPE \
   --name tickets_hydrate \
@@ -66,13 +66,13 @@ rm -f hydrate.zip
 $SGCLI steps push $STEP_TYPE \
   --name scan_tickets \
   --entrypoint scan_tickets.handler \
-  --file ../workflow/demo-steps/scan_tickets.py \
+  --file ../workflows/original/demo-steps/scan_tickets.py \
   $COMMON_OPTS
 
 $SGCLI steps push $STEP_TYPE \
   --name save_results \
   --entrypoint save_results.handler \
-  --file ../workflow/demo-steps/save_results.py \
+  --file ../workflows/original/demo-steps/save_results.py \
   $COMMON_OPTS
 
 # tagging now happens separately
@@ -81,3 +81,4 @@ $SGCLI steps push $STEP_TYPE \
 # $SGCLI steps tag --step tickets_hydrate:1 --tag latest
 
 $SGCLI runs start --step tickets_hydrate:latest --json
+$SGCLI prompts create --name escalate --content escalate-prompt.txt

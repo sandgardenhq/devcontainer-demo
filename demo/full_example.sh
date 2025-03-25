@@ -31,7 +31,7 @@ green "Pushing first version of escalate_checker"
 sand steps push $STEP_TYPE --entrypoint escalate_checker1.handler --file ../workflow/demo-steps/escalate_checker1.py $ESCALATE_OPTS
 sand steps tag --step escalate_checker:1 --tag latest
 green "Running first version of escalate_checker"
-sand runs start --step=escalate_checker:latest --payload='{"input": {"ticket_id": 1}}'
+sand runs start --step=escalate_checker:latest --input='{"ticket_id": 1}'
 
 # Composite
 green "Pushing workflow: backfill"
@@ -39,7 +39,7 @@ sand workflows push --name backfill --stages=../workflow/demo-steps/backfill1.js
 sand workflows tag --workflow backfill:1 --tag latest
 
 green "Running backfill"
-sand runs start --workflow=backfill:latest --payload='{}'
+sand runs start --workflow=backfill:latest
 
 green "Take a look at the results"
 ./psql.sh "SELECT id,subject,CASE WHEN needs_escalation THEN 'True' ELSE 'False' END AS needs_escalation FROM tickets"
@@ -63,7 +63,7 @@ green "Tagging second version as latest"
 sand steps tag --step escalate_checker:2 --tag latest
 
 green "Running backfill again to use new latest version"
-sand runs start --workflow=backfill:latest --payload='{}'
+sand runs start --workflow=backfill:latest
 
 green "Take a look at the final results"
 ./psql.sh "SELECT id,subject,CASE WHEN needs_escalation THEN 'True' ELSE 'False' END AS needs_escalation FROM tickets"

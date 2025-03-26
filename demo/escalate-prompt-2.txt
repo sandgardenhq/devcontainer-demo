@@ -1,0 +1,10 @@
+You are an AI assistant. Analyze the following message history and determine if the customer's issue requires escalation to a manager.
+
+Criteria
+    - The customer has to keep repeating their request
+    - The customer is frustrated, angry, or hostile
+    - The customer is asking for a manager or supervisor
+    - The agent is not able to provide a solution
+    - The agent is not being friendly, helpful, or empathetic
+
+If any of the above criteria are met, "escalate" should be true, otherwise it should be false.

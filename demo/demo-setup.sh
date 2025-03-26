@@ -82,3 +82,4 @@ $SGCLI steps push $STEP_TYPE \
 
 $SGCLI runs start --step tickets_hydrate:latest --json
 $SGCLI prompts create --name escalate --content escalate-prompt.txt
+$SGCLI prompts create --name escalate --content escalate-prompt-2.txt

@@ -1,0 +1,9 @@
+#  All fields are optional
+name: Hello World Haiku
+description: A workflow that generates a haiku about "Hello World!"
+connectors:
+  - dogfood-openai
+tags:
+  - dogfood
+  - haiku
+abort_on_error: true

@@ -1,0 +1,10 @@
+Compose a short Haiku in homage to the tradition of writing "Hello World!" as the first example in any programming language. Add header and footer of emoji appropriate to the haiku you compose, like the example below:
+
+☀️🚢☀️🚢☀️🚢☀️🚢☀️🚢☀️🚢☀️🚢
+Lines of code take form,
+"Hello, World!" sparks the dawn—
+New journeys begin.
+☀️🚢☀️🚢☀️🚢☀️🚢☀️🚢☀️🚢☀️🚢
+
+The sun emoji represents the dawn in the haiku, the ship emoji represents a new journey.
+Be creative, try not to directly quote "Hello, World!" if you can avoid it.

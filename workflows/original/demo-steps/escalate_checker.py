@@ -1,3 +1,4 @@
+import sandgarden_runtime
 from psycopg2.extras import RealDictCursor
 from pydantic import BaseModel
 
@@ -5,26 +6,19 @@ class EscalateCheckerOutput(BaseModel):
     escalate: bool
 
 def handler(input, sandgarden):
-    conn = sandgarden.get_connectors('tickets-postgres')
-    openai = sandgarden.get_connectors('tickets-openai')
+    conn = sandgarden.get_connector('tickets-postgres')
+    openai = sandgarden.get_connector('tickets-openai')
+    prompt = sandgarden.prompts['escalate']
     
     ticket_id = input.get('ticket_id') or input.get('$.ticket_id')
 
     ticket, messages = get_ticket_history(conn, ticket_id)
     context = build_context(ticket, messages)
-    response = run_ai(openai, context)
+    response = run_ai(openai, context, prompt)
     result = response.choices[0].message.parsed
 
     return {"ticket_id": ticket_id, "escalate": result.escalate}
 
-def system_prompt():
-    return """
-    You are an AI assistant.
-
-    Analyze the following message history and determine if the customer's issue requires escalation to a manager.
-
-    If it does, "escalate" should be true, otherwise it should be false.
-    """
 
 def get_ticket_history(conn, ticket_id):
     ticket = get_ticket(conn, ticket_id)
@@ -58,11 +52,11 @@ def build_context(ticket, messages):
     return str_buf
 
 
-def run_ai(openai, context):
+def run_ai(openai, context, prompt):
     return openai.beta.chat.completions.parse(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": system_prompt()},
+            {"role": "system", "content": prompt},
             {"role": "user", "content": context}
         ],
         response_format=EscalateCheckerOutput

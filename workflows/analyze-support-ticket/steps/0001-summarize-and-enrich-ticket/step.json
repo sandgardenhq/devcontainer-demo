@@ -8,7 +8,7 @@
     "network": ""
   },
   "connectors": null,
-  "url": "https://api.sandgarden.com/api/v1/steps/summarize-and-enrich-ticket:2",
+  "url": "https://api.sandgarden.com/api/v1/functions/summarize-and-enrich-ticket:2",
   "inputSchema": {
     "type": "object",
     "$schema": "http://json-schema.org/draft-07/schema#",

@@ -1,12 +1,12 @@
 [
   {
-    "step": "scan_tickets:latest"
+    "function": "scan_tickets:latest"
   },
   {
-    "step": "escalate_checker:latest",
+    "function": "escalate_checker:latest",
     "forEach": "$.ticket_id"
   },
   {
-    "step": "save_results:latest"
+    "function": "save_results:latest"
   }
 ]

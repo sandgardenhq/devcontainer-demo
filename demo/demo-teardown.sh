@@ -5,10 +5,10 @@
 # And return you to a totally empty state
 
 # TODO: Reduce this back to all in one namespace
-sand steps delete --name="tickets_%" --force
-sand steps delete --name="escalate_checker%" --force
-sand steps delete --name="scan_tickets%" --force
-sand steps delete --name="save_results%" --force
+sand functions delete --name="tickets_%" --force
+sand functions delete --name="escalate_checker%" --force
+sand functions delete --name="scan_tickets%" --force
+sand functions delete --name="save_results%" --force
 sand workflows delete --name="backfill%" --force
 
 sand connectors delete --name="tickets-%" --force

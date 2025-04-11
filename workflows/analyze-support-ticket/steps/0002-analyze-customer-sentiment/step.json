@@ -6,12 +6,12 @@
     "baseImage": "public.ecr.aws/sandgarden/sgruntime:python-3.12",
     "entrypoint": "main.handler",
     "network": "",
-    "volumeMountPath": "/Users/brittcrawford/workspace/devcontainer-demo/analyze-support-ticket/steps/0002-analyze-customer-sentiment"
+    "volumeMountPath": "/Users/brittcrawford/workspace/devcontainer-demo/analyze-support-ticket/functions/0002-analyze-customer-sentiment"
   },
   "connectors": [
     "ticket-summarizer-model"
   ],
-  "url": "https://api.sandgarden.com/api/v1/steps/analyze-customer-sentiment:2",
+  "url": "https://api.sandgarden.com/api/v1/functions/analyze-customer-sentiment:2",
   "inputSchema": {
     "type": "object",
     "$schema": "http://json-schema.org/draft-07/schema#",

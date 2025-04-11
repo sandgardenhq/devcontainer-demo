@@ -8,22 +8,19 @@
         "name": "stage0",
         "input": "runInput",
         "workflowRunInput": true,
-        "workflow": "load-trivia-dataset:latest",
-        "step": "load-trivia-dataset:latest"
+        "function": "load-trivia-dataset:latest"
       },
       {
         "name": "stage1",
         "input": "stage0",
         "stageInput": 0,
-        "workflow": "answer-some-questions:latest",
-        "step": "answer-some-questions:latest"
+        "function": "answer-some-questions:latest"
       },
       {
         "name": "stage2",
         "input": "stage1",
         "stageInput": 1,
-        "workflow": "check-your-work:latest",
-        "step": "check-your-work:latest"
+        "function": "check-your-work:latest"
       }
     ]
   },

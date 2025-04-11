@@ -13,8 +13,8 @@ function load_env() {
 
   # If DEMO_TYPE is "docker", use docker compose instead of lambda
   if [ "$DEMO_TYPE" == "docker" ]; then
-    export STEP_TYPE="docker"
-    export STEP_OPTS="--network sandgarden_demo_network"
+    export FUNCTION_TYPE="docker"
+    export FUNCTION_OPTS="--network sandgarden_demo_network"
 
     export DB_HOST="postgres"
     export DB_PORT="5432"
@@ -22,7 +22,7 @@ function load_env() {
     export DB_USER="tickets"
     export DB_PASS="devpassword"
   elif [[ "${DEMO_TYPE}" == "awslambda" || "${DEMO_TYPE}" == "awsLambda" ]]; then
-    export STEP_TYPE="awsLambda"
+    export FUNCTION_TYPE="awsLambda"
     # Read values from outputs.json
     export OUTPUTS_FILE="${SCRIPT_DIR}/../director_deploy/outputs.json"
 
@@ -44,7 +44,7 @@ function load_env() {
     export DB_USER
     DB_PASS=$(jq -r '.db_password.value' $OUTPUTS_FILE)
 
-    export STEP_OPTS="--role $AWS_ROLE --timeoutSeconds 120"
+    export FUNCTION_OPTS="--role $AWS_ROLE --timeoutSeconds 120"
   else
     echo "Error: Invalid DEMO_TYPE: $DEMO_TYPE"
     echo "Must be either 'docker' or 'awslambda'"
